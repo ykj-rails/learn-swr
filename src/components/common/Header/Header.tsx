@@ -7,7 +7,7 @@ type List = {
 }
 
 export const Header = () => {
-  const [list, setList] = useState<List | null>(null)
+  const [list, setList] = useState<List[] | null>(null)
   console.log(list)
 
   const fetchListData = async (setList: any) => {
@@ -21,5 +21,12 @@ export const Header = () => {
   }, [])
 
   console.log(list)
-  return <header>Header</header>
+  return (
+    <>
+      <header>Header</header>
+      <ul>
+        {list && list.map((item, index) => <li key={index}>{item.name}</li>)}
+      </ul>
+    </>
+  )
 }
