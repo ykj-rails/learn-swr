@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 type List = {
+  id: number
   name: string
   job: string
-  age: number
 }
 
 export const Header = () => {
@@ -11,7 +11,7 @@ export const Header = () => {
   console.log(list)
 
   const fetchListData = async (setList: any) => {
-    const res = await fetch('/list')
+    const res = await fetch('/user')
     const listData = await res.json()
     setList(listData)
   }
@@ -23,10 +23,8 @@ export const Header = () => {
   console.log(list)
   return (
     <>
-      <header>Header</header>
-      <ul>
-        {list && list.map((item, index) => <li key={index}>{item.name}</li>)}
-      </ul>
+      <header>Headerrr</header>
+      <ul>{list && list.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
     </>
   )
 }
