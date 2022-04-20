@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import TopPage from '@/pages'
+const TopPage = lazy(() => import('@/pages'))
+const AnotherPage = lazy(() => import('@/pages/another'))
 
 export const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<TopPage />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<TopPage />} />
+          <Route path="another" element={<AnotherPage />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }

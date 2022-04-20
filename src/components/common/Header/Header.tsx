@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 type List = {
   id: number
@@ -6,7 +6,7 @@ type List = {
   job: string
 }
 
-export const Header = () => {
+const HeaderMemo = () => {
   const [list, setList] = useState<List[] | null>(null)
   console.log(list)
 
@@ -23,8 +23,17 @@ export const Header = () => {
   console.log(list)
   return (
     <>
-      <header>Headerrr</header>
-      <ul>{list && list.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
+      <header>Header</header>
+      <ul>
+        {list &&
+          list.map((item) => (
+            <li key={item.id}>
+              {item.name} : {item.job}
+            </li>
+          ))}
+      </ul>
     </>
   )
 }
+
+export const Header = memo(HeaderMemo)
