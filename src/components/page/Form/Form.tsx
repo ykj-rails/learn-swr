@@ -1,9 +1,11 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-type Inputs = {
-  example: string
-  exampleRequired: string
+import { Input } from '@/components/common/Form'
+
+export type InputValue = {
+  name: string
+  tel: string
 }
 
 export const Form = () => {
@@ -12,23 +14,29 @@ export const Form = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  } = useForm<InputValue>()
+  const onSubmit: SubmitHandler<InputValue> = (data) => console.log(data)
 
-  console.log(watch('example')) // watch input value by passing the name of it
+  console.log(watch())
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register('example')} />
-
-      {/* include validation with required or other standard HTML validation rules */}
-      <input {...register('exampleRequired', { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
-
-      <input type="submit" />
+      <Input
+        label="お名前"
+        type="text"
+        name="name"
+        register={register}
+        required
+      />
+      {errors.name && <span>お名前を入力してください</span>}
+      <Input label="電話番号" type="tel" name="tel" register={register} />
+      {/* <input
+        type="text"
+        placeholder="名字"
+        {...register('example', { required: true })}
+      />
+      {errors.exampleRequired && <span>必須項目を入力してください</span>} */}
+      <button type="submit">送信する</button>
     </form>
   )
 }
