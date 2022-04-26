@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type List = {
   id: number
@@ -6,7 +6,7 @@ type List = {
   job: string
 }
 
-const HeaderMemo = () => {
+export const Header = () => {
   const [list, setList] = useState<List[] | null>(null)
   console.log(list)
 
@@ -20,7 +20,6 @@ const HeaderMemo = () => {
     fetchListData(setList)
   }, [])
 
-  console.log(list)
   return (
     <>
       <header>Header</header>
@@ -35,5 +34,3 @@ const HeaderMemo = () => {
     </>
   )
 }
-
-export const Header = memo(HeaderMemo)
